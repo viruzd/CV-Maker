@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pembuat CV</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mut:#6b7280;--pri:#4f46e5;--ok:#16a34a;--bad:#dc2626;--warn:#d97706;--bd:#e5e7eb;--soft:#eef2ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111320;--card:#1b1e30;--tx:#eef0f8;--mut:#9aa1b5;--pri:#818cf8;--bd:#2c3050;--soft:#24284a;--warn:#fbbf24}}
+:root[data-theme="dark"]{--bg:#111320;--card:#1b1e30;--tx:#eef0f8;--mut:#9aa1b5;--pri:#818cf8;--bd:#2c3050;--soft:#24284a;--warn:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:640px;margin:0 auto;padding:14px}
+h1.t{font-size:22px;margin:2px 0 8px}
+.mut{color:var(--mut);font-size:13px;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px 14px;margin:10px 0}
+.card>summary{font-weight:700;font-size:16px;cursor:pointer;padding:4px 0}
+label{font-size:12px;color:var(--mut);display:block;margin:10px 0 5px}
+input[type=text],input[type=month],textarea,select{width:100%;padding:11px;font-size:16px;border-radius:11px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-family:inherit}
+textarea{resize:vertical}
+.gr{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.full2{grid-column:1/-1}
+.ck{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--tx)}
+.btn{padding:12px 16px;border:0;border-radius:12px;background:var(--pri);color:#fff;font-size:16px;font-weight:700}
+.btn.alt{background:var(--soft);color:var(--pri)}
+.btn.full{width:100%;margin-top:10px}
+.seg{display:flex;gap:6px;margin:8px 0}
+.seg button{flex:1;padding:10px 4px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:14px;font-weight:600}
+.seg button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.sw{display:flex;gap:10px;margin:8px 0}
+.sw button{width:34px;height:34px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--bd)}
+.sw button.on{box-shadow:0 0 0 3px var(--pri)}
+.it{border:1px solid var(--bd);border-radius:12px;padding:10px;margin:10px 0}
+.ih{display:flex;justify-content:space-between;align-items:center}
+.ih button{border:0;background:var(--soft);color:var(--pri);border-radius:8px;width:32px;height:32px;margin-left:4px}
+.ih button[data-del]{color:var(--bad)}
+.good{background:rgba(22,163,74,.13);border-radius:12px;padding:10px;font-size:14px;line-height:1.5}
+.warn{background:rgba(217,119,6,.15);border-radius:12px;padding:10px;font-size:14px;line-height:1.5}
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:6px 0}
+.pf{display:flex;gap:10px;align-items:center;margin-top:8px}
+.pf img{width:54px;height:70px;object-fit:cover;border-radius:6px;border:1px solid var(--bd)}
+[hidden]{display:none!important}
+
+/* ---------- CV ---------- */
+#pw{position:relative;margin:10px auto;box-shadow:0 2px 14px rgba(0,0,0,.25);overflow:hidden;background:#fff}
+#page{width:794px;transform-origin:top left;background:#fff;color:#222;font-family:var(--ff);font-size:var(--fs);line-height:1.45}
+#page *{box-sizing:border-box}
+.sheet{width:100%;border-collapse:collapse;table-layout:fixed;background:#fff}
+.sheet td{padding:0;vertical-align:top}
+.sp{height:12mm}
+thead{display:table-header-group}tfoot{display:table-footer-group}
+#page h1{font-size:2.1em;margin:0;line-height:1.15;color:var(--ac)}
+#page h3{font-size:1.02em;text-transform:uppercase;letter-spacing:.08em;color:var(--ac);border-bottom:1px solid #ccc;padding-bottom:3px;margin:0 0 6px;break-after:avoid}
+#page section{margin-top:12px}
+#page p{margin:0}
+.klasik .c,.ats .c{padding:0 16mm}
+.hd{display:flex;justify-content:space-between;gap:14px;align-items:center;border-bottom:2.5px solid var(--ac);padding-bottom:10px}
+.pos{font-size:1.15em;font-weight:600;margin-top:2px}
+.ct{font-size:.92em;color:#444;margin-top:6px}
+.ph{width:28mm;height:36mm;object-fit:cover;border-radius:3px;flex:0 0 auto}
+.e{margin-bottom:8px;break-inside:avoid}
+.h{display:flex;justify-content:space-between;gap:10px}
+.d{color:#555;font-size:.92em;white-space:nowrap}
+.s{color:#444;font-style:italic}
+#page ul{margin:3px 0 0;padding-left:1.1em}#page li{margin:1px 0}
+.k{display:inline-block;background:#eef2f7;border-radius:3px;padding:1px 8px;margin:2px 4px 2px 0}
+.ats h1,.ats h3{color:#000}.ats .hd{border-bottom:1.5px solid #000}.ats .ph{display:none}
+.mod{background:linear-gradient(to right,var(--ac) 33%,#fff 33%)}
+.mod .c{display:grid;grid-template-columns:33% 1fr}
+.mod aside{color:#fff;padding:0 7mm 0 10mm}
+.mod aside h1{color:#fff;font-size:1.7em}
+.mod aside .ph{width:38mm;height:38mm;border-radius:50%;display:block;margin:0 0 12px;border:3px solid rgba(255,255,255,.7)}
+.mod aside .pos{font-size:1em;font-weight:500;opacity:.95}
+.mod aside h4{margin:16px 0 4px;text-transform:uppercase;letter-spacing:.08em;font-size:.95em;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:3px}
+.mod aside p{margin:3px 0;word-break:break-word}
+.mod main{padding:0 12mm 0 8mm}
+
+@page{size:A4;margin:0}
+@media print{
+  :root{padding:0!important}
+  html,body{background:#fff!important}
+  .app{padding:0!important;max-width:none!important}
+  .ui{display:none!important}
+  #pv{display:block!important}
+  #pw{width:210mm!important;height:auto!important;margin:0!important;box-shadow:none!important;overflow:visible!important}
+  #page{transform:none!important;width:210mm!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="ui"><h1 class="t">📄 Pembuat CV</h1>
+<div class="tabs"><div class="seg" id="tabs" style="margin:0"><button data-v="f" class="on">✏️ Isi Data</button><button data-v="p">👁️ Pratinjau & PDF</button></div></div></div>
+
+<div id="fv" class="ui">
+<div class="mut">Isi data di bawah. Semua tersimpan otomatis di HP-mu. Lalu buka tab Pratinjau untuk mencetak PDF.</div>
+<details class="card" open><summary>1. Data diri</summary>
+<label>Nama lengkap</label><input type="text" data-p="p.nama" placeholder="mis. Rina Putri Lestari">
+<label>Posisi yang dilamar / jabatan</label><input type="text" data-p="p.posisi" placeholder="mis. Staf Administrasi">
+<div class="gr"><div><label>Email</label><input type="text" data-p="p.email"></div><div><label>No. HP / WhatsApp</label><input type="text" data-p="p.hp"></div>
+<div><label>Kota domisili</label><input type="text" data-p="p.kota"></div><div><label>LinkedIn / portofolio</label><input type="text" data-p="p.link"></div></div>
+<label>Info tambahan (opsional, mis. tanggal lahir)</label><input type="text" data-p="p.extra">
+<label>Foto (opsional)</label><div class="pf"><img id="fp" alt="" hidden><input type="file" id="foto" accept="image/*"><button class="btn alt" id="fdel" hidden>Hapus</button></div>
+</details>
+<details class="card"><summary>2. Ringkasan profil</summary>
+<div class="mut">2–3 kalimat: siapa kamu, pengalaman utama, dan nilai tambahmu.</div>
+<textarea data-p="ringkas" rows="4" placeholder="mis. Lulusan akuntansi dengan 3 tahun pengalaman administrasi, teliti, dan terbiasa memakai Excel."></textarea>
+<div class="mut" id="rc"></div></details>
+<details class="card"><summary>3. Pengalaman kerja</summary><div id="l-kerja"></div></details>
+<details class="card"><summary>4. Pendidikan</summary><div id="l-edu"></div></details>
+<details class="card"><summary>5. Keahlian & bahasa</summary>
+<label>Keahlian (pisahkan dengan koma)</label><textarea data-p="skill" rows="2" placeholder="Microsoft Excel, Komunikasi, Pembukuan"></textarea>
+<label>Bahasa (satu per baris)</label><textarea data-p="bahasa" rows="2" placeholder="Indonesia (Ibu)&#10;Inggris (Aktif)"></textarea></details>
+<details class="card"><summary>6. Sertifikat & pelatihan</summary><div id="l-sert"></div></details>
+<details class="card"><summary>7. Organisasi & kegiatan</summary><div id="l-org"></div></details>
+<div class="card"><div class="gr"><button class="btn alt" id="demo">Isi contoh</button><button class="btn alt" id="rst">Kosongkan semua</button><button class="btn alt" id="exp" style="margin-top:8px">Unduh cadangan</button><button class="btn alt" id="impb" style="margin-top:8px">Muat cadangan</button></div>
+<input type="file" id="imp" accept=".json,application/json" hidden><div class="mut" id="bm" style="margin-top:8px"></div></div>
+<button class="btn full" data-go="p">Lanjut ke Pratinjau →</button>
+</div>
+
+<div id="pv" hidden>
+<div class="ui card">
+<div class="mut">Template</div><div class="seg" id="o-tpl"><button data-tpl="klasik">Klasik</button><button data-tpl="mod">Modern</button><button data-tpl="ats">ATS Simpel</button></div>
+<div class="mut">Warna</div><div class="sw" id="o-col"></div>
+<div class="gr"><div><div class="mut">Huruf</div><div class="seg" id="o-font"><button data-font="sans">Sans</button><button data-font="serif">Serif</button></div></div>
+<div><div class="mut">Ukuran</div><div class="seg" id="o-size"><button data-size="s">S</button><button data-size="m">M</button><button data-size="l">L</button></div></div></div>
+</div>
+<div class="ui" id="chk"></div>
+<div id="pw"><div id="page"></div></div>
+<div class="ui"><button class="btn full" id="pdf">📄 Simpan sebagai PDF</button>
+<div class="mut" style="margin-top:8px">Di jendela cetak: tujuan <b>Simpan sebagai PDF</b>, ukuran kertas <b>A4</b>, skala 100%, dan matikan "Header dan footer" jika ada.</div></div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=z=>String(z==null?"":z).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MN=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const KEY="cv_v1";
+const DEF=()=>({p:{nama:"",posisi:"",email:"",hp:"",kota:"",link:"",extra:""},ringkas:"",kerja:[],edu:[],skill:"",bahasa:"",sert:[],org:[],foto:"",set:{tpl:"klasik",warna:"#1f4e79",font:"sans",size:"m"}});
+let D=DEF();
+try{const o=JSON.parse(localStorage.getItem(KEY)||"{}");D=Object.assign(DEF(),o);D.p=Object.assign(DEF().p,o.p);D.set=Object.assign(DEF().set,o.set);["kerja","edu","sert","org"].forEach(k=>{if(!Array.isArray(D[k]))D[k]=[]})}catch(e){D=DEF()}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
+const get=(o,p)=>p.split(".").reduce((a,k)=>a&&a[k],o);
+const setv=(o,p,v)=>{const a=p.split("."),l=a.pop();a.reduce((x,k)=>x[k],o)[l]=v};
+const LST={
+ kerja:{i:"Pengalaman",n:()=>({pt:"",p:"",kota:"",mulai:"",selesai:"",skrg:false,desk:""}),f:[["pt","Perusahaan","t"],["p","Posisi","t"],["kota","Kota","t"],["mulai","Mulai","m"],["selesai","Selesai","m"],["skrg","Masih bekerja di sini","c"],["desk","Tugas & pencapaian (satu poin per baris)","a"]]},
+ edu:{i:"Pendidikan",n:()=>({sch:"",jur:"",mulai:"",selesai:"",ipk:"",desk:""}),f:[["sch","Sekolah / Universitas","t"],["jur","Jurusan / Program","t"],["mulai","Tahun mulai","t"],["selesai","Tahun lulus","t"],["ipk","IPK / nilai (opsional)","t"],["desk","Catatan (opsional, satu poin per baris)","a"]]},
+ sert:{i:"Sertifikat",n:()=>({n:"",pen:"",th:""}),f:[["n","Nama sertifikat / pelatihan","t"],["pen","Penyelenggara","t"],["th","Tahun","t"]]},
+ org:{i:"Kegiatan",n:()=>({n:"",peran:"",th:"",desk:""}),f:[["n","Organisasi / kegiatan","t"],["peran","Peran","t"],["th","Tahun","t"],["desk","Deskripsi (opsional)","a"]]}
+};
+function fld(n,i,k,l,t,v){
+  const a=`data-l="${n}" data-i="${i}" data-k="${k}"`;
+  if(t==="c")return `<label class="ck full2"><input type="checkbox" ${a} ${v?"checked":""}> ${l}</label>`;
+  if(t==="a")return `<div class="full2"><label>${l}</label><textarea ${a} rows="3">${esc(v)}</textarea></div>`;
+  return `<div><label>${l}</label><input type="${t==="m"?"month":"text"}" ${a} value="${esc(v)}"></div>`;
+}
+function listUI(n){
+  const L=LST[n];
+  $("l-"+n).innerHTML=D[n].map((it,i)=>`<div class="it"><div class="ih"><b>${L.i} ${i+1}</b><span><button data-mv="${n}|${i}|-1" aria-label="Naik">▲</button><button data-mv="${n}|${i}|1" aria-label="Turun">▼</button><button data-del="${n}|${i}" aria-label="Hapus">✕</button></span></div><div class="gr">${L.f.map(([k,l,t])=>fld(n,i,k,l,t,it[k])).join("")}</div></div>`).join("")+
+   `<button class="btn alt full" data-add="${n}">+ Tambah ${L.i.toLowerCase()}</button>`;
+}
+function bindStatic(){
+  document.querySelectorAll("[data-p]").forEach(e=>{e.value=get(D,e.dataset.p)||""});
+  Object.keys(LST).forEach(listUI);fotoUI();rcUI();
+}
+const rcUI=()=>{$("rc").textContent=D.ringkas.length+" karakter"+(D.ringkas.length>450?" (agak panjang, idealnya di bawah 450)":"")};
+function fotoUI(){$("fp").hidden=!D.foto;$("fdel").hidden=!D.foto;if(D.foto)$("fp").src=D.foto}
+$("fv").addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.p)setv(D,t.dataset.p,t.value);
+  else if(t.dataset.l)D[t.dataset.l][+t.dataset.i][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;
+  else return;
+  if(t.dataset.p==="ringkas")rcUI();
+  save();draw();
+});
+$("fv").addEventListener("click",e=>{
+  const a=e.target.closest("[data-add]"),d=e.target.closest("[data-del]"),m=e.target.closest("[data-mv]"),g=e.target.closest("[data-go]");
+  if(a){D[a.dataset.add].push(LST[a.dataset.add].n());listUI(a.dataset.add)}
+  else if(d){const [n,i]=d.dataset.del.split("|");if(confirm("Hapus item ini?")){D[n].splice(+i,1);listUI(n)}else return}
+  else if(m){const [n,i,s]=m.dataset.mv.split("|"),x=+i,y=x+ +s;if(y<0||y>=D[n].length)return;[D[n][x],D[n][y]]=[D[n][y],D[n][x]];listUI(n)}
+  else if(g){view(g.dataset.go);return}
+  else return;
+  save();draw();
+});
+// foto
+$("foto").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,400/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);D.foto=c.toDataURL("image/jpeg",.82);save();fotoUI();draw()};im.src=r.result};
+  r.readAsDataURL(f);e.target.value="";
+};
+$("fdel").onclick=()=>{D.foto="";save();fotoUI();draw()};
+
+// ---------- render CV ----------
+const fm=s=>{const m=/^(\d{4})-(\d{2})$/.exec(s||"");return m?MN[+m[2]-1]+" "+m[1]:""};
+const lines=s=>String(s||"").split("\n").map(x=>x.replace(/^\s*[-•*]\s*/,"").trim()).filter(Boolean);
+const ul=s=>{const a=lines(s);return a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""};
+const dash=(a,b)=>[a,b].filter(Boolean).join(" – ");
+const sec=(t,b)=>b?`<section><h3>${t}</h3>${b}</section>`:"";
+function parts(){
+  const ats=D.set.tpl==="ats";
+  const kerja=D.kerja.filter(x=>x.pt||x.p).map(x=>`<div class="e"><div class="h"><b>${esc(x.p||x.pt)}</b><span class="d">${esc(dash(fm(x.mulai),x.skrg?"Sekarang":fm(x.selesai)))}</span></div><div class="s">${esc([x.p?x.pt:"",x.kota].filter(Boolean).join(" · "))}</div>${ul(x.desk)}</div>`).join("");
+  const edu=D.edu.filter(x=>x.sch||x.jur).map(x=>`<div class="e"><div class="h"><b>${esc(x.sch||x.jur)}</b><span class="d">${esc(dash(x.mulai,x.selesai))}</span></div><div class="s">${esc([x.sch?x.jur:"",x.ipk?"IPK "+x.ipk:""].filter(Boolean).join(" · "))}</div>${ul(x.desk)}</div>`).join("");
+  const sert=D.sert.filter(x=>x.n).map(x=>`<div class="e"><div class="h"><b>${esc(x.n)}</b><span class="d">${esc(x.th)}</span></div>${x.pen?`<div class="s">${esc(x.pen)}</div>`:""}</div>`).join("");
+  const org=D.org.filter(x=>x.n).map(x=>`<div class="e"><div class="h"><b>${esc(x.n)}</b><span class="d">${esc(x.th)}</span></div>${x.peran?`<div class="s">${esc(x.peran)}</div>`:""}${ul(x.desk)}</div>`).join("");
+  const sk=String(D.skill||"").split(/[,\n]/).map(x=>x.trim()).filter(Boolean);
+  return {kerja,edu,sert,org,sk,ats,bhs:lines(D.bahasa),
+    ringkas:D.ringkas.trim()?`<p>${esc(D.ringkas.trim())}</p>`:""};
+}
+function cv(){
+  const p=D.p,q=parts(),ct=[p.email,p.hp,p.kota,p.link,p.extra].filter(Boolean),tpl=D.set.tpl;
+  const nama=esc(p.nama||"Nama Lengkap");
+  const skHTML=q.sk.length?(q.ats?`<p>${esc(q.sk.join(", "))}</p>`:q.sk.map(x=>`<span class="k">${esc(x)}</span>`).join("")):"";
+  const bhHTML=q.bhs.map(x=>`<p>${esc(x)}</p>`).join("");
+  let body;
+  if(tpl==="mod"){
+    body=`<div class="c"><aside>${D.foto?`<img class="ph" src="${D.foto}" alt="">`:""}<h1>${nama}</h1><div class="pos">${esc(p.posisi)}</div>
+    ${ct.length?`<h4>Kontak</h4>${ct.map(x=>`<p>${esc(x)}</p>`).join("")}`:""}
+    ${q.sk.length?`<h4>Keahlian</h4>${q.sk.map(x=>`<p>${esc(x)}</p>`).join("")}`:""}
+    ${q.bhs.length?`<h4>Bahasa</h4>${bhHTML}`:""}</aside>
+    <main>${sec("Profil",q.ringkas)}${sec("Pengalaman Kerja",q.kerja)}${sec("Pendidikan",q.edu)}${sec("Sertifikat & Pelatihan",q.sert)}${sec("Organisasi & Kegiatan",q.org)}</main></div>`;
+  }else{
+    body=`<div class="c"><div class="hd"><div><h1>${nama}</h1><div class="pos">${esc(p.posisi)}</div><div class="ct">${ct.map(esc).join(" &nbsp;•&nbsp; ")}</div></div>${D.foto&&!q.ats?`<img class="ph" src="${D.foto}" alt="">`:""}</div>
+    ${sec("Profil",q.ringkas)}${sec("Pengalaman Kerja",q.kerja)}${sec("Pendidikan",q.edu)}${sec("Keahlian",skHTML)}${sec("Bahasa",bhHTML)}${sec("Sertifikat & Pelatihan",q.sert)}${sec("Organisasi & Kegiatan",q.org)}</div>`;
+  }
+  return `<table class="sheet ${tpl}"><thead><tr><td><div class="sp"></div></td></tr></thead><tbody><tr><td>${body}</td></tr></tbody><tfoot><tr><td><div class="sp"></div></td></tr></tfoot></table>`;
+}
+const FS={s:"9.5pt",m:"10.5pt",l:"11.5pt"},FF={sans:"Calibri,Arial,Helvetica,sans-serif",serif:"Georgia,'Times New Roman',serif"};
+function draw(){
+  const pg=$("page"),s=D.set;
+  pg.style.setProperty("--ac",s.tpl==="ats"?"#000":s.warna);pg.style.setProperty("--fs",FS[s.size]);pg.style.setProperty("--ff",FF[s.font]);
+  pg.innerHTML=cv();
+  const miss=[];
+  if(!D.p.nama)miss.push("nama lengkap");if(!D.p.posisi)miss.push("posisi yang dilamar");if(!D.p.email&&!D.p.hp)miss.push("email atau nomor HP");
+  if(!D.ringkas.trim())miss.push("ringkasan profil");if(!D.kerja.length&&!D.edu.length)miss.push("pengalaman atau pendidikan");if(!D.skill.trim())miss.push("keahlian");
+  requestAnimationFrame(()=>{fit();
+    const pages=Math.max(1,Math.ceil((pg.offsetHeight-90)/1033));
+    $("chk").innerHTML=(miss.length?`<div class="warn">Belum diisi: ${miss.join(", ")}.</div>`:`<div class="good">✅ Data utama sudah lengkap.</div>`)+`<div class="mut" style="margin:6px 2px">Perkiraan panjang: ±${pages} halaman${pages>2?" (CV idealnya 1–2 halaman, coba ringkas atau perkecil ukuran huruf)":""}.</div>`;
+  });
+  document.querySelectorAll("[data-tpl]").forEach(b=>b.classList.toggle("on",b.dataset.tpl===s.tpl));
+  document.querySelectorAll("[data-font]").forEach(b=>b.classList.toggle("on",b.dataset.font===s.font));
+  document.querySelectorAll("[data-size]").forEach(b=>b.classList.toggle("on",b.dataset.size===s.size));
+  document.querySelectorAll("#o-col button").forEach(b=>b.classList.toggle("on",b.dataset.c===s.warna));
+}
+function fit(){
+  const w=$("pw"),pg=$("page"),av=w.parentElement.clientWidth,sc=av>0?Math.min(1,av/794):1;
+  pg.style.transform=`scale(${sc})`;w.style.width=Math.round(794*sc)+"px";w.style.height=Math.round(pg.offsetHeight*sc)+"px";
+}
+window.addEventListener("resize",()=>{if(!$("pv").hidden)fit()});
+["#1f4e79","#0f766e","#7c3aed","#b91c1c","#c2410c","#334155"].forEach(c=>{const b=document.createElement("button");b.dataset.c=c;b.style.background=c;b.setAttribute("aria-label","Warna "+c);$("o-col").appendChild(b)});
+$("pv").addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.tpl)D.set.tpl=t.dataset.tpl;else if(t.dataset.font)D.set.font=t.dataset.font;else if(t.dataset.size)D.set.size=t.dataset.size;else if(t.dataset.c)D.set.warna=t.dataset.c;else return;
+  save();draw();
+});
+$("pdf").onclick=()=>{
+  const old=document.title;document.title="CV - "+(D.p.nama||"Tanpa Nama");
+  window.onafterprint=()=>{document.title=old};window.print();
+};
+function view(v){
+  $("fv").hidden=v!=="f";$("pv").hidden=v!=="p";
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  if(v==="p")draw();window.scrollTo(0,0);
+}
+$("tabs").onclick=e=>{const b=e.target.closest("[data-v]");if(b)view(b.dataset.v)};
+
+// ---------- contoh, cadangan, reset ----------
+$("demo").onclick=()=>{
+  if(!confirm("Isi contoh akan menimpa data yang ada. Lanjut?"))return;
+  const f=D.foto;D=DEF();D.foto=f;
+  D.p={nama:"Rina Putri Lestari",posisi:"Staf Administrasi & Keuangan",email:"rina.lestari@email.com",hp:"0812-3456-7890",kota:"Balikpapan, Kalimantan Timur",link:"linkedin.com/in/rinalestari",extra:""};
+  D.ringkas="Lulusan Akuntansi dengan 3 tahun pengalaman di bidang administrasi dan pembukuan. Teliti, terbiasa bekerja dengan target, dan mahir memakai Microsoft Excel untuk pelaporan keuangan.";
+  D.kerja=[{pt:"PT Maju Bersama",p:"Staf Administrasi",kota:"Balikpapan",mulai:"2022-03",selesai:"",skrg:true,desk:"Mengelola arsip dan dokumen kontrak lebih dari 200 klien\nMenyusun laporan keuangan bulanan dengan Excel\nMemangkas waktu rekap data 30% lewat template otomatis"},{pt:"CV Sinar Jaya",p:"Admin Gudang",kota:"Balikpapan",mulai:"2020-06",selesai:"2022-02",skrg:false,desk:"Mencatat keluar masuk barang harian\nMenyusun stok opname bulanan"}];
+  D.edu=[{sch:"Universitas Mulawarman",jur:"S1 Akuntansi",mulai:"2016",selesai:"2020",ipk:"3,52",desk:""}];
+  D.skill="Microsoft Excel, Pembukuan, Komunikasi, Manajemen Arsip, Ketelitian";D.bahasa="Indonesia (Ibu)\nInggris (Aktif)";
+  D.sert=[{n:"Brevet Pajak A & B",pen:"IAI Kalimantan Timur",th:"2021"}];D.org=[{n:"Himpunan Mahasiswa Akuntansi",peran:"Bendahara",th:"2018",desk:"Mengelola dana kegiatan lebih dari Rp50 juta"}];
+  save();bindStatic();draw();
+};
+$("rst").onclick=()=>{if(confirm("Kosongkan semua data?")){D=DEF();save();bindStatic();draw()}};
+$("exp").onclick=()=>{const b=new Blob([JSON.stringify(D)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="data-cv.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);$("bm").textContent="Cadangan diunduh."};
+$("impb").onclick=()=>$("imp").click();
+$("imp").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||!o.p)throw 0;D=Object.assign(DEF(),o);D.p=Object.assign(DEF().p,o.p);D.set=Object.assign(DEF().set,o.set);["kerja","edu","sert","org"].forEach(k=>{if(!Array.isArray(D[k]))D[k]=[]});save();bindStatic();draw();$("bm").textContent="Berhasil dimuat."}catch(_){$("bm").textContent="File tidak valid."}};r.readAsText(f);e.target.value=""};
+
+bindStatic();draw();
+</script>
+</body>
+</html>
